@@ -26,7 +26,7 @@ async function run() {
 		app.post("/service", async (req, res) => {
 			const service = req.body;
 			const result = await serviceCollection.insertOne(service);
-			res.send(`${result} Successful add services`);
+			res.send({ success: true, message: "Service Add Success" });
 		});
 
 		//get method (get service)
@@ -43,7 +43,7 @@ async function run() {
 			console.log(id);
 			const query = { _id: ObjectId(id) };
 			const result = await serviceCollection.deleteOne(query);
-			res.send(result);
+			res.send({ success: true, message: "Service delete success" });
 		});
 	} finally {
 		// await client.close();
