@@ -39,9 +39,17 @@ async function run() {
 
 		//get method (get service by limit and page set)
 		app.get("/servicelist", async (req, res) => {
+			const page = parseInt(req.query.page);
+			const limit = parseInt(req.query.limit);
+			console.log(page, limit);
+
 			const query = {};
 			const cursor = serviceCollection.find(query);
-			const result = await cursor.toArray();
+			const result = await cursor
+				.skip(page * limit)
+				.limit(limit)
+				.toArray();
+
 			res.send(result);
 		});
 
