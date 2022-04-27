@@ -37,6 +37,20 @@ async function run() {
 			res.send(result);
 		});
 
+		//get method (get service by limit and page set)
+		app.get("/servicelist", async (req, res) => {
+			const query = {};
+			const cursor = serviceCollection.find(query);
+			const result = await cursor.toArray();
+			res.send(result);
+		});
+
+		//get method (product count)
+		app.get("/serviceListCount", async (req, res) => {
+			const count = await serviceCollection.estimatedDocumentCount();
+			res.send({ count });
+		});
+
 		//delete method (delete service)
 		app.delete("/service/:id", async (req, res) => {
 			const id = req.params.id;
