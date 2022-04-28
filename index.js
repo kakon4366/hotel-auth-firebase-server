@@ -38,6 +38,14 @@ async function run() {
 			res.send({ success: true, message: "Order Place Success" });
 		});
 
+		//get method (order list get)
+		app.get("/orderList", async (req, res) => {
+			const query = {};
+			const cursor = orderCollection.find(query);
+			const orders = await cursor.toArray();
+			res.send(orders);
+		});
+
 		//get method (get service)
 		app.get("/service", async (req, res) => {
 			const query = {};
