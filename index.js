@@ -22,11 +22,20 @@ async function run() {
 			.db("hotelFirebase")
 			.collection("services");
 
+		const orderCollection = client.db("hotelFirebase").collection("orders");
+
 		//post method (add servicess)
 		app.post("/service", async (req, res) => {
 			const service = req.body;
 			const result = await serviceCollection.insertOne(service);
 			res.send({ success: true, message: "Service Add Success" });
+		});
+
+		//post method (order place)
+		app.post("/order", async (req, res) => {
+			const orderRoom = req.body;
+			const result = await orderCollection.insertOne(orderRoom);
+			res.send({ success: true, message: "Order Place Success" });
 		});
 
 		//get method (get service)
